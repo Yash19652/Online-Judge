@@ -38,52 +38,80 @@ const createProblem = async (req, res) => {
     }
 
     const problem = await Problems.create({
-        probId,
-        probName,
-        probStatement,
-        difficulty,
-        topic,
-        companyAsked,
-        ex_TC,
+      probId,
+      probName,
+      probStatement,
+      difficulty,
+      topic,
+      companyAsked,
+      ex_TC,
     });
 
-    res.status(200).json({message : "Problem Added Successfully"})
+    res.status(200).json({ message: "Problem Added Successfully" });
   } catch (error) {
-    res.status(400).json({message: "error in creatProblem API to create a problem",error : error});
+    res
+      .status(400)
+      .json({
+        message: "error in creatProblem API to create a problem",
+        error: error,
+      });
   }
 };
 
-const updateProblem = async (req,res) =>{
-    try {
-        const {
-            id,
-            probId,
-            probName,
-            probStatement,
-            difficulty,
-            topic,
-            companyAsked,
-            ex_TC,
-          } = req.body;
+const updateProblem = async (req, res) => {
+  try {
+    const {
+      id,
+      probId,
+      probName,
+      probStatement,
+      difficulty,
+      topic,
+      companyAsked,
+      ex_TC,
+    } = req.body;
 
-        const problem = await Problems.updateOne({_id : id},{
-            $set:{
-                probId : probId,
-                probName : probName,
-                probStatement : probStatement,
-                difficulty : difficulty,
-                topic : topic,
-                companyAsked: companyAsked,
-                ex_TC : ex_TC,
-
-        }
-    })
-
-    res.status("200").json({message:"Problem updated successfully", data:problem})
-        
-    } catch (error) {
-        res.status(400).json({message : "error in updatProblem API"})
+    const problem = await Problems.updateOne(
+      { _id: id },
+      {
+        $set: {
+          probId: probId,
+          probName: probName,
+          probStatement: probStatement,
+          difficulty: difficulty,
+          topic: topic,
+          companyAsked: companyAsked,
+          ex_TC: ex_TC,
+        },
+      }
+    );
+    if (!problem) {
+      res
+        .status(400)
+        .json({ message: "Problem with given ID not found to update" });
     }
-}
 
-module.exports = { getProblemList, createProblem ,updateProblem};
+    res
+      .status("200")
+      .json({ message: "Problem updated successfully", data: problem });
+  } catch (error) {
+    res.status(400).json({ message: "error in updateProblem API" , error : error });
+  }
+};
+
+const deleteProblem = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const problem = await Problems.deleteOne({ _id: id });
+
+    if (problem.deletedCount === 0) {
+        return res.status(400).json({ message: "Problem with given ID not found to delete" });
+      }
+
+    res.status(200).json({message : "Problem deleted successfully"})
+  } catch (error) {
+    res.status(400).json({ message: "error in deleteProblem API" , error : error});
+  }
+};
+
+module.exports = { getProblemList, createProblem, updateProblem , deleteProblem};
