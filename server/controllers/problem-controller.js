@@ -53,4 +53,37 @@ const createProblem = async (req, res) => {
   }
 };
 
-module.exports = { getProblemList, createProblem };
+const updateProblem = async (req,res) =>{
+    try {
+        const {
+            id,
+            probId,
+            probName,
+            probStatement,
+            difficulty,
+            topic,
+            companyAsked,
+            ex_TC,
+          } = req.body;
+
+        const problem = await Problems.updateOne({_id : id},{
+            $set:{
+                probId : probId,
+                probName : probName,
+                probStatement : probStatement,
+                difficulty : difficulty,
+                topic : topic,
+                companyAsked: companyAsked,
+                ex_TC : ex_TC,
+
+        }
+    })
+
+    res.status("200").json({message:"Problem updated successfully", data:problem})
+        
+    } catch (error) {
+        res.status(400).json({message : "error in updatProblem API"})
+    }
+}
+
+module.exports = { getProblemList, createProblem ,updateProblem};
