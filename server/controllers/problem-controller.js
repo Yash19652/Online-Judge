@@ -32,6 +32,11 @@ const createProblem = async (req, res) => {
       res.status(400).send({ message: "Choose another problem ID" });
     }
 
+    const existingproblem = await Problems.findOne({ probName });
+    if (existingproblem) {
+      res.status(400).send({ message: "Problem already exist" });
+    }
+
     const problem = await Problems.create({
         probId,
         probName,
