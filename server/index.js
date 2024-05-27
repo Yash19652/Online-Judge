@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     //get all data from frontend
-    const { firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password, role } = req.body;
 
     //validations
     
@@ -75,6 +75,7 @@ app.post("/register", async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
+      role,
     });
     //gen a token
     //JWT TOKEN = 1.Header 2.Payload 3.Signature
@@ -98,7 +99,7 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     //get all data from frontend
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
     if (!email || email.trim() === "" || !password || password.trim() === "") {
       res.status(400).send({error : "Enter all details"});
@@ -112,6 +113,10 @@ app.post("/login", async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       res.status(400).send({error : "Invalid Password"});
+    }
+
+    if(role != user.role){
+      res.status(400).send({error : "Please Select appropriate role"});
     }
 
     const token = jwt.sign(

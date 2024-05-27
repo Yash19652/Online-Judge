@@ -5,59 +5,54 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
-import Axios from 'axios'
+import Axios from "axios";
 
 const defaultTheme = createTheme();
 
-
-
 export default function Login() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-      const email = formData.get("email")
-      const password = formData.get("password")
+    const email = formData.get("email");
+    const password = formData.get("password");
 
-      const data = Object.fromEntries(formData)
-      // console.log(data);
+    const data = Object.fromEntries(formData);
+    // console.log(data);
 
-      const res = await Axios.post('http://localhost:5000/login',data)
+    const res = await Axios.post("http://localhost:5000/login", data)
       .then(function (response) {
-        if(response.status)
-          {
-            console.log(response.data.message);
-            navigate('/');
-            // alert(response.data.message)
-          }     
-          else
-          {
-            console.log(response)
-          }     
+        if (response.status) {
+          console.log(response.data.message);
+          navigate("/");
+          // alert(response.data.message)
+        } else {
+          console.log(response);
+        }
       })
       .catch(function (error) {
         console.log(error);
-        alert(error.response.data.error)
-        
+        alert(error.response.data.error);
+
         // <Alert severity="error">{error.response.data.error}</Alert>
       });
 
-      
-
-      return res;
-    
+    return res;
   };
 
   return (
@@ -106,6 +101,29 @@ export default function Login() {
                   autoComplete="new-password"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <FormControl>
+                  <FormLabel id="role">
+                    Role
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="role"
+                    name="role"
+                  >
+                    <FormControlLabel
+                      value="user"
+                      control={<Radio />}
+                      label="User"
+                    />
+                    <FormControlLabel
+                      value="admin"
+                      control={<Radio />}
+                      label="Admin"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
               {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -123,9 +141,7 @@ export default function Login() {
             </Button>
             <Grid container justifyContent="flex-start">
               <Grid item>
-                <Link to ='/sign-up'>
-                  Dont have an account? Sign Up
-                </Link>
+                <Link to="/sign-up">Dont have an account? Sign Up</Link>
               </Grid>
             </Grid>
           </Box>
