@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors")
 dotenv.config();
 const authRouter = require("./routes/auth")
+const problemsListRouter = require("./routes/problemList")
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", authRouter) 
+app.use("/problemList",problemsListRouter)
 
 
 app.listen(process.env.PORT, () => {
