@@ -1,9 +1,12 @@
 const Problems = require("../Model/Problems");
 
+// you can find the role by req.role (because using verifyJWT middleware)
+
 const getProblemList = async (req, res) => {
   try {
     const data = await Problems.find({});
-    res.status(200).json(data);
+    
+    res.status(200).json({data});
   } catch (error) {
     console.log("Error in getProblemList API to get list of problems");
   }

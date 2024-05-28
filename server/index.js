@@ -11,11 +11,17 @@ const cors = require("cors")
 dotenv.config();
 const authRouter = require("./routes/auth")
 const problemsListRouter = require("./routes/problemList")
+const verifyJWT = require("./middlewares/verifyJWT");
 
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin:`http://localhost:5173`,
+  methods:["GET","POST"],
+  credentials:true
+
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 DBConnection(); 
@@ -25,6 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", authRouter) 
+
+app.use(verifyJWT)
 app.use("/problemList",problemsListRouter)
 
 

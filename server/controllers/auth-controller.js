@@ -2,6 +2,7 @@ const User = require("../Model/Users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+require('dotenv').config()
 
 registerUser = async (req, res) => {
   try {
@@ -105,7 +106,7 @@ loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: User._id, email },
+      { id: User._id, email: email , role:user.role},
       process.env.JWT_SECRET_KEY,
       { expiresIn: "2h" }
     );

@@ -24,7 +24,7 @@ const defaultTheme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
-
+  Axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -34,8 +34,8 @@ export default function Login() {
 
     const data = Object.fromEntries(formData);
     // console.log(data);
-
-    const res = await Axios.post("http://localhost:5000/login", data)
+    
+    const res = await Axios.post("http://localhost:5000/login", data , {withCredentials:true})
       .then(function (response) {
         if (response.status) {
           console.log(response.data.message);
