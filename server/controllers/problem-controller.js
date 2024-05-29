@@ -108,12 +108,13 @@ const updateProblem = async (req, res) => {
 };
 
 const deleteProblem = async (req, res) => {
-  const { id } = req.body;
+  const { _id } = req.body;
+  // console.log(req.body)
   try {
-    const problem = await Problems.deleteOne({ _id: id });
+    const problem = await Problems.deleteOne({ _id: _id });
 
     if (problem.deletedCount === 0) {
-        return res.status(400).json({ message: "Problem with given ID not found to delete" });
+        return res.status(400).json({ message: "Problem with given ID not found to delete" , ID : _id });
       }
 
     res.status(200).json({message : "Problem deleted successfully"})
