@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProblemList from "./pages/ProblemList";
+import UpdateProblem from "./pages/UpdateProblem";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/problemlist" element={<ProblemList />} />
+          <Route path="/updateproblem" element={<UpdateProblem />} />
         </Routes>
         <Footer />
       </BrowserRouter>

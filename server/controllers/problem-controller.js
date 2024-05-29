@@ -64,18 +64,23 @@ const createProblem = async (req, res) => {
 const updateProblem = async (req, res) => {
   try {
     const {
-      id,
+      _id,
       probId,
       probName,
       probStatement,
       difficulty,
       topic,
       companyAsked,
-      ex_TC,
+      input1,
+      output1,
+      input2,
+      output2,
     } = req.body;
-
+    
+    const ex_TC = [{input:input1,output:output1},{input:input2,output:output2}]
+    const Companies_Asked = companyAsked.split(",")
     const problem = await Problems.updateOne(
-      { _id: id },
+      { _id: _id },
       {
         $set: {
           probId: probId,
@@ -83,7 +88,7 @@ const updateProblem = async (req, res) => {
           probStatement: probStatement,
           difficulty: difficulty,
           topic: topic,
-          companyAsked: companyAsked,
+          companyAsked: Companies_Asked,
           ex_TC: ex_TC,
         },
       }
@@ -95,7 +100,7 @@ const updateProblem = async (req, res) => {
     }
 
     res
-      .status("200")
+      .status(200)
       .json({ message: "Problem updated successfully", data: problem });
   } catch (error) {
     res.status(400).json({ message: "error in updateProblem API" , error : error });
