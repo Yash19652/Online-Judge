@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProblemList from "./pages/ProblemList";
 import UpdateProblem from "./pages/UpdateProblem";
+import CreateProblem from "./pages/CreateProblem";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/problemlist" element={<ProblemList />} />
           <Route path="/updateproblem" element={<UpdateProblem />} />
+          <Route path="/createproblem" element={<CreateProblem />} />
         </Routes>
         <Footer />
       </BrowserRouter>

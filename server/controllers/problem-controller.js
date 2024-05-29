@@ -21,8 +21,14 @@ const createProblem = async (req, res) => {
       difficulty,
       topic,
       companyAsked,
-      ex_TC,
+      input1,
+      output1,
+      input2,
+      output2,
     } = req.body;
+    
+    const ex_TC = [{input:input1,output:output1},{input:input2,output:output2}]
+    const Companies_Asked = companyAsked.split(",")
 
     if (
       !(probId && probName && probStatement && difficulty && topic && ex_TC)
@@ -46,7 +52,7 @@ const createProblem = async (req, res) => {
       probStatement,
       difficulty,
       topic,
-      companyAsked,
+      companyAsked:Companies_Asked,
       ex_TC,
     });
 

@@ -3,7 +3,7 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip ,Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Axios from "axios";
@@ -15,6 +15,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import AddIcon from '@mui/icons-material/Add';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 const ProblemList = () => {
   const [role, setRole] = useState("admin");
@@ -56,8 +60,8 @@ const ProblemList = () => {
         accessorKey: "status",
         header: "Status",
         size: 75,
-        Cell: ({ value }) =>
-          value === null || value === undefined ? "unsolved" : value,
+        Cell: ({ cell }) =>
+          {return cell.getValue() !== undefined ? <RadioButtonUncheckedIcon color="warning"/> : <TaskAltIcon color="success"/> }
       },
       {
         accessorKey: "probId",
@@ -74,12 +78,38 @@ const ProblemList = () => {
         header: "Difficulty",
         size: 150,
         sortingFn: (rowA, rowB) => {
-          const order = ["Easy", "Medium", "Hard"];
+          const order = ["easy", "medium", "hard"];
           return (
             order.indexOf(rowA.original.difficulty) -
             order.indexOf(rowB.original.difficulty)
           );
         },
+
+        Cell: ({ cell }) => (
+          <Box
+            component="span"
+            sx={(theme) => ({
+                // backgroundColor: white,
+                // cell.getValue() === 'hard'
+                //   ? theme.palette.error.light
+                //   : cell.getValue() === 'medium'
+                //     ? theme.palette.warning.light
+                //     : theme.palette.success.light,
+              borderRadius: '0.25rem',
+              color: 
+              cell.getValue() === 'hard' 
+              ? theme.palette.error.light 
+              : cell.getValue() === 'medium'
+              ? theme.palette.warning.light
+              : theme.palette.success.light,
+              maxWidth: '9ch',
+              p: '0.25rem',
+            })}
+          >
+            {cell.getValue()}
+          </Box>
+        ),
+        
       },
       {
         accessorKey: "topic",
@@ -173,6 +203,19 @@ const ProblemList = () => {
         cursor: "pointer", //you might want to change the cursor too when adding an onClick
       },
     }),
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Button
+        startIcon={<AddIcon/>}
+        variant="contained"
+        size="medium"
+        onClick={() => {
+          console.log("Add a problem")
+          navigate("/createproblem")
+        }}
+      >
+        Add a problem
+      </Button>
+    ),
   });
 
   return (
