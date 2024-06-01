@@ -25,7 +25,7 @@ const executeCpp = (filePath,inputFilePath) =>{
                 if(stderr){
                     reject(stderr)
                 }
-                resolve(stdout)
+                resolve(stdout.replace(/\r\n/g, ''));
             }
         )
 
@@ -34,12 +34,50 @@ const executeCpp = (filePath,inputFilePath) =>{
 }
 
 
-const executePy = (filePath) =>{
-    console.log("cant exexute python file yet");
+const executePy = (filePath,inputFilePath) =>{
+    const command = `python ${filePath} < ${inputFilePath}`
+
+    return new Promise((resolve,reject) => {
+        exec(command,
+            (error,stdout,stderr) => {
+                if(error){
+                    reject(error)
+                }
+                if(stderr){
+                    reject(stderr)
+                }
+                // resolve(stdout)
+                resolve(stdout.replace(/\r\n/g, ''));
+            }
+        )
+    })
 }
 
-const executeJava = (filePath) =>{
-    console.log("cant exexute java file yet");
+const executeJava = (filePath,inputFilePath) =>{
+    const jobId = path.basename(filePath).split(".")[0];
+    const outputFileName = `${jobId}` // depends upon the environment
+    const outPath = path.join(outputPath,outputFileName)
+    // const command = `javac -d ${outputPath} ${filePath} && cd ${outputPath} && java ${outputFileName} < ${inputFilePath}`
+    const command = `javac -d ${outputPath} ${filePath} && cd ${outputPath} && java Test < ${inputFilePath}`
+
+    console.log(command)
+    return new Promise((resolve,reject) => {
+        exec(command,
+            (error,stdout,stderr) => {
+                if(error){
+                    reject(error)
+                }
+                if(stderr){
+                    reject(stderr)
+                }
+                // resolve(stdout)
+                resolve(stdout.replace(/\r\n/g, ''));
+
+            }
+        )
+
+    })
+
 }
 
 module.exports = {executeCpp , executeJava , executePy}
