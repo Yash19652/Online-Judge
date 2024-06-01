@@ -21,7 +21,7 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 const ProblemList = () => {
-  const [role, setRole] = useState("admin");
+  const [role, setRole] = useState("");
   const [data, setData] = useState({});
   const [selectedRow, setSelectedRow] = useState();
   const navigate = useNavigate();
@@ -204,7 +204,7 @@ const ProblemList = () => {
       },
     }),
     renderTopToolbarCustomActions: ({ table }) => (
-      <Button
+      role === "admin" && <Button
         startIcon={<AddIcon/>}
         variant="contained"
         size="medium"

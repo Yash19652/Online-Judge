@@ -11,6 +11,7 @@ const cors = require("cors")
 dotenv.config();
 const authRouter = require("./routes/auth")
 const problemsListRouter = require("./routes/problemList")
+const solveRouter = require("./routes/solveRouter")
 const verifyJWT = require("./middlewares/verifyJWT");
 
 app.use(bodyParser.json());
@@ -34,6 +35,7 @@ app.use("/", authRouter)
 
 app.use(verifyJWT)
 app.use("/problemList",problemsListRouter)
+app.use("/solve",solveRouter)
 
 
 app.listen(process.env.PORT, () => {

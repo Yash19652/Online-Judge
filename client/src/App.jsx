@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import ProblemList from "./pages/ProblemList";
 import UpdateProblem from "./pages/UpdateProblem";
 import CreateProblem from "./pages/CreateProblem";
+import Problem from "./pages/Problem";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path="/problemlist" element={<ProblemList />} />
           <Route path="/updateproblem" element={<UpdateProblem />} />
           <Route path="/createproblem" element={<CreateProblem />} />
+          <Route path="/problem" element={<Problem />} />
+          
         </Routes>
         <Footer />
       </BrowserRouter>
