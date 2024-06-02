@@ -14,6 +14,7 @@ const runSolution = async (req, res) => {
       .status(500)
       .json({ success: false, error: "language undefined" });
   }
+  // return res.json(language,input,code)
 
   try {
     const filePath = await generateFile(language, code);
@@ -33,7 +34,7 @@ const runSolution = async (req, res) => {
         throw new Error("Unsupported language");
     }
 
-    res.json({output });
+    res.json({output});
   } catch (error) {
     res.status(500).json({ success: false, error });
   }

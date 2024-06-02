@@ -41,7 +41,7 @@ const executePy = (filePath,inputFilePath) =>{
         exec(command,
             (error,stdout,stderr) => {
                 if(error){
-                    reject(error)
+                    reject({error,stderr})
                 }
                 if(stderr){
                     reject(stderr)
