@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CodeEditor from "../components/CodeEditor";
 import { useLocation } from "react-router-dom";
+import ProblemDetails from "../components/ProblemDetails";
 
 const Problem = () => {
   const location = useLocation();
@@ -20,21 +21,15 @@ const Problem = () => {
         }}
       >
         <Grid container spacing={2}>
+          
           {/* left section */}
           <Grid item xs={12} md={6}>
-            {<h5>{recievedData.probName}</h5>}
-            {<h5>{recievedData.probStatement}</h5>}
-            {recievedData.ex_TC.map((TC) => (
-              <div key={TC.id}>
-                <h5>{TC.input}</h5>
-                <h5>{TC.output}</h5>
-              </div>
-            ))}
+            <ProblemDetails recievedData={recievedData} />
           </Grid>
 
           {/* right section */}
+
           <Grid item xs={12} md={6}>
-            {/* code editor */}
             <CodeEditor />
           </Grid>
         </Grid>

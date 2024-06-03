@@ -3,7 +3,7 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import { IconButton, Tooltip ,Box } from "@mui/material";
+import { IconButton, Tooltip, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Axios from "axios";
@@ -19,6 +19,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import Chip from "@mui/material/Chip";
 
 const ProblemList = () => {
   const [role, setRole] = useState("");
@@ -94,24 +95,28 @@ const ProblemList = () => {
           <Box
             component="span"
             sx={(theme) => ({
-              // backgroundColor: white,
-              // cell.getValue() === 'hard'
-              //   ? theme.palette.error.light
-              //   : cell.getValue() === 'medium'
-              //     ? theme.palette.warning.light
-              //     : theme.palette.success.light,
               borderRadius: "0.25rem",
-              color:
-                cell.getValue() === "hard"
-                  ? theme.palette.error.light
-                  : cell.getValue() === "medium"
-                  ? theme.palette.warning.light
-                  : theme.palette.success.light,
               maxWidth: "9ch",
               p: "0.25rem",
             })}
           >
-            {cell.getValue()}
+            <Chip
+              label={cell.getValue()}
+              variant="outlined"
+              sx={(theme) => {
+                const color =
+                  cell.getValue() === "hard"
+                    ? theme.palette.error.light
+                    : cell.getValue() === "medium"
+                    ? theme.palette.warning.light
+                    : theme.palette.success.light;
+
+                return {
+                  color: color,
+                  borderColor: color,
+                };
+              }}
+            />
           </Box>
         ),
       },
@@ -139,7 +144,10 @@ const ProblemList = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title="Delete">
-              <IconButton color="error" onClick={() => handleClickOpen(row)}>
+              <IconButton
+                color="error"
+                onClick={(e) => handleClickOpen(row, e)}
+              >
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -151,12 +159,10 @@ const ProblemList = () => {
     return baseColumns;
   }, [role]);
 
-  const handleUpdate = (row) => {
-    // console.log("Update row _id:", row.original._id);
-    // console.log(row.original)
+  const handleUpdate = (row, e) => {
+    // e.stopPropogation();
     const problemDetails = row.original;
     navigate("/updateproblem", { state: { problemDetails } });
-    // Add your update logic here
   };
 
   const handleDelete = async () => {
@@ -199,12 +205,14 @@ const ProblemList = () => {
         backgroundColor: "grey",
       },
     },
-    muiTableBodyRowProps: ({ row }) => ({
+    muiTableBodyCellProps: ({ cell }) => ({
       onClick: (event) => {
-        const ID = row.original._id;
-        const problemData = row.original;
-        navigate(`/problem/${ID}`, { state: { problemData } });
-        // console.log(row.original._id);
+        console.log(cell.row);
+        const ID = cell.row.original._id;
+        const problemData = cell.row.original;
+        if (cell.column.id !== "actions") {
+          navigate(`/problem/${ID}`, { state: { problemData } });
+        }
       },
       sx: {
         cursor: "pointer", //you might want to change the cursor too when adding an onClick

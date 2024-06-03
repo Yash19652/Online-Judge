@@ -100,7 +100,7 @@ const executeJava = (filePath, inputFilePath) => {
   const outputFileName = `${jobId}`; // depends upon the environment
   const outPath = path.join(outputPath, outputFileName);
   // const command = `javac -d ${outputPath} ${filePath} && cd ${outputPath} && java ${outputFileName} < ${inputFilePath}`
-  const command = `javac -d ${outputPath} ${filePath} && cd ${outputPath} && java Test < ${inputFilePath}`;
+  const command = `javac -d ${outputPath} ${filePath} && cd ${outputPath} && java Main < ${inputFilePath}`;
 
   console.log(command);
   return new Promise((resolve, reject) => {
