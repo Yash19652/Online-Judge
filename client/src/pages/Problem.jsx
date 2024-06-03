@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
-import CodeEditor from "../components/CodeEditor"
-
+import CodeEditor from "../components/CodeEditor";
+import { useLocation } from "react-router-dom";
 
 const Problem = () => {
-   
+  const location = useLocation();
+  const recievedData = location.state.problemData || {};
+  // console.log(recievedData);
   return (
     <div>
       <Box
@@ -20,24 +22,20 @@ const Problem = () => {
         <Grid container spacing={2}>
           {/* left section */}
           <Grid item xs={12} md={6}>
-            left side
+            {<h5>{recievedData.probName}</h5>}
+            {<h5>{recievedData.probStatement}</h5>}
+            {recievedData.ex_TC.map((TC) => (
+              <div key={TC.id}>
+                <h5>{TC.input}</h5>
+                <h5>{TC.output}</h5>
+              </div>
+            ))}
           </Grid>
 
           {/* right section */}
           <Grid item xs={12} md={6}>
-            {/* language */}
-            
-            
-
             {/* code editor */}
             <CodeEditor />
-            
-
-            <Grid  marginY={1}>
-            </Grid>
-
-            {/* run n submit */}
-            <Grid ></Grid>
           </Grid>
         </Grid>
       </Box>

@@ -15,6 +15,7 @@ import Axios from "axios";
 
 const CodeEditor = () => {
   const editorRef = useRef();
+  const targetRef = useRef(null)
 
   const [lang, setLang] = useState("cpp");
   const [code, setCode] = useState(CODE_SNIPPETS[lang]);
@@ -59,13 +60,18 @@ const CodeEditor = () => {
         },
         { withCredentials: true }
       );
-
+      if (targetRef.current) {
+        targetRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
       setTabValue("2");
       setOutput(res.data.output);
     } catch (error) {
       setTabValue("2");
-      setOutput("ERROR IN CODE")
-      console.log(error);
+      if (targetRef.current) {
+        targetRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+      setOutput("error")
+      // console.log(error);
     }
   };
 
@@ -106,7 +112,7 @@ const CodeEditor = () => {
       </Stack>
 
       {/* i/p o/p verdict */}
-      <Box sx={{ width: "100%", typography: "body1" }}>
+      <Box ref={targetRef} sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={tabValue}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList

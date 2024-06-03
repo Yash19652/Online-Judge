@@ -15,10 +15,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import AddIcon from '@mui/icons-material/Add';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import AddIcon from "@mui/icons-material/Add";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
 const ProblemList = () => {
   const [role, setRole] = useState("");
@@ -60,8 +60,13 @@ const ProblemList = () => {
         accessorKey: "status",
         header: "Status",
         size: 75,
-        Cell: ({ cell }) =>
-          {return cell.getValue() !== undefined ? <RadioButtonUncheckedIcon color="warning"/> : <TaskAltIcon color="success"/> }
+        Cell: ({ cell }) => {
+          return cell.getValue() !== undefined ? (
+            <RadioButtonUncheckedIcon color="warning" />
+          ) : (
+            <TaskAltIcon color="success" />
+          );
+        },
       },
       {
         accessorKey: "probId",
@@ -89,27 +94,26 @@ const ProblemList = () => {
           <Box
             component="span"
             sx={(theme) => ({
-                // backgroundColor: white,
-                // cell.getValue() === 'hard'
-                //   ? theme.palette.error.light
-                //   : cell.getValue() === 'medium'
-                //     ? theme.palette.warning.light
-                //     : theme.palette.success.light,
-              borderRadius: '0.25rem',
-              color: 
-              cell.getValue() === 'hard' 
-              ? theme.palette.error.light 
-              : cell.getValue() === 'medium'
-              ? theme.palette.warning.light
-              : theme.palette.success.light,
-              maxWidth: '9ch',
-              p: '0.25rem',
+              // backgroundColor: white,
+              // cell.getValue() === 'hard'
+              //   ? theme.palette.error.light
+              //   : cell.getValue() === 'medium'
+              //     ? theme.palette.warning.light
+              //     : theme.palette.success.light,
+              borderRadius: "0.25rem",
+              color:
+                cell.getValue() === "hard"
+                  ? theme.palette.error.light
+                  : cell.getValue() === "medium"
+                  ? theme.palette.warning.light
+                  : theme.palette.success.light,
+              maxWidth: "9ch",
+              p: "0.25rem",
             })}
           >
             {cell.getValue()}
           </Box>
         ),
-        
       },
       {
         accessorKey: "topic",
@@ -197,25 +201,29 @@ const ProblemList = () => {
     },
     muiTableBodyRowProps: ({ row }) => ({
       onClick: (event) => {
-        console.log(row.original._id);
+        const ID = row.original._id;
+        const problemData = row.original;
+        navigate(`/problem/${ID}`, { state: { problemData } });
+        // console.log(row.original._id);
       },
       sx: {
         cursor: "pointer", //you might want to change the cursor too when adding an onClick
       },
     }),
-    renderTopToolbarCustomActions: ({ table }) => (
-      role === "admin" && <Button
-        startIcon={<AddIcon/>}
-        variant="contained"
-        size="medium"
-        onClick={() => {
-          console.log("Add a problem")
-          navigate("/createproblem")
-        }}
-      >
-        Add a problem
-      </Button>
-    ),
+    renderTopToolbarCustomActions: ({ table }) =>
+      role === "admin" && (
+        <Button
+          startIcon={<AddIcon />}
+          variant="contained"
+          size="medium"
+          onClick={() => {
+            console.log("Add a problem");
+            navigate("/createproblem");
+          }}
+        >
+          Add a problem
+        </Button>
+      ),
   });
 
   return (

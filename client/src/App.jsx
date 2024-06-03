@@ -22,7 +22,7 @@ function App() {
           <Route path="/problemlist" element={<ProblemList />} />
           <Route path="/updateproblem" element={<UpdateProblem />} />
           <Route path="/createproblem" element={<CreateProblem />} />
-          <Route path="/problem" element={<Problem />} />
+          <Route path="/problem/:ID" element={<Problem />} />
           
         </Routes>
         <Footer />
