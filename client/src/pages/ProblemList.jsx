@@ -46,6 +46,10 @@ const ProblemList = () => {
       setData(response.data.data);
       setRole(response.data.role);
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        const msg = error.response.data.message
+        navigate('/login' , {state : {msg}});
+      }
       console.error("There was an error fetching the data!", error);
     }
   }, []);

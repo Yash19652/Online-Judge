@@ -65,16 +65,16 @@ registerUser = async (req, res) => {
     });
     //gen a token
     //JWT TOKEN = 1.Header 2.Payload 3.Signature
-    const token = jwt.sign(
-      { id: User._id, email },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "2h",
-      }
-    );
+    // const token = jwt.sign(
+    //   { id: User._id, email },
+    //   process.env.JWT_SECRET_KEY,
+    //   {
+    //     expiresIn: "2h",
+    //   }
+    // );
 
-    user.token = token;
-    user.password = undefined;
+    // user.token = token;
+    // user.password = undefined;
 
     res.status(200).json({ message: "User Registered Successfully", user });
   } catch (error) {

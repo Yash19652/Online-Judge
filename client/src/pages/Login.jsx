@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -17,12 +16,26 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-
 import Axios from "axios";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect,useState } from "react";
 const defaultTheme = createTheme();
 
 export default function Login() {
+
+  const location = useLocation()
+  const [alertMsg,setAlertMsg] = useState(location.state ? location.state.msg : null)
+  console.log(alertMsg)
+  useEffect(() => {
+    if (alertMsg) {
+      const timer = setTimeout(() => {
+        alert(alertMsg);
+        setAlertMsg(null);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [alertMsg]);
+  
   const navigate = useNavigate();
   Axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {

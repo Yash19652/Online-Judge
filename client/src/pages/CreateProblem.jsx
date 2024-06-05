@@ -34,12 +34,12 @@ export default function CreateProblem() {
           navigate("/problemlist");
           // alert(response.data.message)
         } else {
-          console.log(response);
+          // console.log(response);
         }
       })
       .catch(function (error) {
-        console.log(error);
-        alert(error.response.data.error);
+        console.log(error.response.data);
+        // alert();
 
         // <Alert severity="error">{error.response.data.error}</Alert>
       });

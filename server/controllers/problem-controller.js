@@ -26,24 +26,22 @@ const createProblem = async (req, res) => {
       input2,
       output2,
     } = req.body;
-    
-    const ex_TC = [{input:input1,output:output1},{input:input2,output:output2}]
-    const Companies_Asked = companyAsked.split(",")
-
     if (
       !(probId && probName && probStatement && difficulty && topic && ex_TC)
     ) {
-      res.status(400).send({ message: "Please enter all neccessary details" });
+      res.status(400).json({ message: "Please enter all neccessary details" });
     }
+    const ex_TC = [{input:input1,output:output1},{input:input2,output:output2}]
+    const Companies_Asked = companyAsked.split(",")
 
     const existingId = await Problems.findOne({ probId });
     if (existingId) {
-      res.status(400).send({ message: "Choose another problem ID" });
+      res.status(400).json({ message: "Choose another problem ID" });
     }
 
     const existingproblem = await Problems.findOne({ probName });
     if (existingproblem) {
-      res.status(400).send({ message: "Problem already exist" });
+      res.status(400).json({ message: "Problem already exist" });
     }
 
     const problem = await Problems.create({

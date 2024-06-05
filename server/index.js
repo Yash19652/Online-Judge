@@ -33,9 +33,9 @@ app.get("/", (req, res) => {
 
 app.use("/", authRouter) 
 
-app.use(verifyJWT)
-app.use("/problemList",problemsListRouter)
-app.use("/solve",solveRouter)
+// app.use(verifyJWT)
+app.use("/problemList",verifyJWT,problemsListRouter)
+app.use("/solve",verifyJWT,solveRouter)
 
 
 app.listen(process.env.PORT, () => {
