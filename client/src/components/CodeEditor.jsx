@@ -12,10 +12,13 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { TextField } from "@mui/material";
 import Axios from "axios";
+import Chip from '@mui/material/Chip';
+import InputAdornment from '@mui/material/InputAdornment';
 
-const CodeEditor = () => {
+
+const CodeEditor = ({ recievedData }) => {
   const editorRef = useRef();
-  const targetRef = useRef(null)
+  const targetRef = useRef(null);
 
   const [lang, setLang] = useState("cpp");
   const [code, setCode] = useState(CODE_SNIPPETS[lang]);
@@ -48,8 +51,8 @@ const CodeEditor = () => {
   const handleRun = async () => {
     try {
       var toSendLang = lang;
-      if(lang ==='python'){
-        toSendLang="py"
+      if (lang === "python") {
+        toSendLang = "py";
       }
       const res = await Axios.post(
         "http://localhost:5000/solve/run",
@@ -57,20 +60,91 @@ const CodeEditor = () => {
           language: toSendLang,
           code: code,
           input: input,
+          probId: recievedData.probId,
         },
         { withCredentials: true }
       );
       if (targetRef.current) {
-        targetRef.current.scrollIntoView({ behavior: 'smooth' });
+        targetRef.current.scrollIntoView({ behavior: "smooth" });
       }
       setTabValue("2");
       setOutput(res.data.output);
     } catch (error) {
       setTabValue("2");
       if (targetRef.current) {
-        targetRef.current.scrollIntoView({ behavior: 'smooth' });
+        targetRef.current.scrollIntoView({ behavior: "smooth" });
       }
-      setOutput("error")
+      setOutput("error");
+      // console.log(error);
+    }
+  };
+
+  const [verdict, setVerdict] = useState([]);
+  const [verdictMessage,setVerdictMessage] = useState("")
+
+  const handleVerdict = (Result) => {
+    const pass = Result.verdict;
+    const N = Result.lineNo;
+    const verdictArray = [];
+    for (let i = 1; i <= N; i++) {
+      verdictArray.push({
+        label: `TESTCASE${i}`,
+        color: pass || i < N ? "success" : "error",
+      });
+    }
+    setVerdict(verdictArray);
+    if (pass) {
+      setVerdictMessage("All test cases passed.");
+  } else {
+      setVerdictMessage(`Failed at TESTCASE${N}.`);
+  }
+  };
+
+  const renderChips = () => (
+    <Box>
+      {verdictMessage}
+    <Stack direction="row" spacing={1}>
+        {verdict.map((testCase, index) => (
+            <Chip
+                key={index}
+                label={testCase.label}
+                color={testCase.color}
+                sx={{ borderRadius: 1 }}
+            />
+        ))}
+    </Stack>
+    </Box>
+);
+
+  const handleSubmit = async () => {
+    try {
+      var toSendLang = lang;
+      if (lang === "python") {
+        toSendLang = "py";
+      }
+      const res = await Axios.post(
+        "http://localhost:5000/solve/submit",
+        {
+          language: toSendLang,
+          code: code,
+          probId: recievedData.probId,
+        },
+        { withCredentials: true }
+      );
+      if (targetRef.current) {
+        targetRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+      setTabValue("3");
+      const Result = res.data.result;
+      handleVerdict(Result);
+
+      // setOutput(res);
+    } catch (error) {
+      setTabValue("3");
+      if (targetRef.current) {
+        targetRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+      setVerdict("error");
       // console.log(error);
     }
   };
@@ -82,7 +156,7 @@ const CodeEditor = () => {
 
       {/* code editor */}
       <Editor
-        height="75vh"
+        height="65vh"
         theme="vs-dark"
         language={lang}
         defaultValue={CODE_SNIPPETS[lang]}
@@ -106,6 +180,7 @@ const CodeEditor = () => {
         <Button
           variant="contained"
           sx={{ margin: 1, marginX: "auto", width: "calc(50% - 8px)" }}
+          onClick={handleSubmit}
         >
           SUBMIT
         </Button>
@@ -155,9 +230,14 @@ const CodeEditor = () => {
               fullWidth
               multiline
               rows={4}
-              value="verdict"
+              value=""
               InputProps={{
                 readOnly: true,
+                startAdornment: (
+                  <InputAdornment position="start">
+                      {renderChips()}
+                  </InputAdornment>
+              ),
               }}
             />
           </TabPanel>

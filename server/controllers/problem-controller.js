@@ -13,6 +13,8 @@ const getProblemList = async (req, res) => {
 };
 
 const createProblem = async (req, res) => {
+
+  console.log(req.body);
   try {
     const {
       probId,
@@ -25,14 +27,33 @@ const createProblem = async (req, res) => {
       output1,
       input2,
       output2,
+      TCinput,
+      TCoutput,
     } = req.body;
+
+    console.log("printed here : ",{
+      probId,
+      probName,
+      probStatement,
+      difficulty,
+      topic,
+      companyAsked,
+      input1,
+      output1,
+      input2,
+      output2,
+      TCinput,
+      TCoutput,
+    })
+  
     if (
-      !(probId && probName && probStatement && difficulty && topic && ex_TC)
+      !(probId && probName && probStatement && difficulty && topic && input1 && input2 && output1 && output2 && TCinput && TCoutput)
     ) {
       res.status(400).json({ message: "Please enter all neccessary details" });
     }
     const ex_TC = [{input:input1,output:output1},{input:input2,output:output2}]
     const Companies_Asked = companyAsked.split(",")
+    const TC = {TCinput:TCinput,TCoutput:TCoutput}
 
     const existingId = await Problems.findOne({ probId });
     if (existingId) {
@@ -52,6 +73,7 @@ const createProblem = async (req, res) => {
       topic,
       companyAsked:Companies_Asked,
       ex_TC,
+      TC:TC,
     });
 
     res.status(200).json({ message: "Problem Added Successfully" });

@@ -30,7 +30,7 @@ const Problem = () => {
           {/* right section */}
 
           <Grid item xs={12} md={6}>
-            <CodeEditor />
+            <CodeEditor recievedData={recievedData}/>
           </Grid>
         </Grid>
       </Box>

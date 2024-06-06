@@ -9,15 +9,17 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import EditNoteSharpIcon from '@mui/icons-material/EditNoteSharp';
+import EditNoteSharpIcon from "@mui/icons-material/EditNoteSharp";
+
 
 import Axios from "axios";
+import { Divider, Chip } from "@mui/material";
+
 
 const defaultTheme = createTheme();
 
 export default function CreateProblem() {
   const navigate = useNavigate();
-
 
   Axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
@@ -25,20 +27,24 @@ export default function CreateProblem() {
     const formData = new FormData(e.currentTarget);
 
     const data = Object.fromEntries(formData);
-    
-    // console.log(data);
-    const res = await Axios.post("http://localhost:5000/problemlist/create", data , {withCredentials:true})
+    console.log("In frontend",data);
+
+    const res = await Axios.post(
+      "http://localhost:5000/problemlist/create",
+      data,
+      { withCredentials: true }
+    )
       .then(function (response) {
         if (response.status) {
           console.log(response);
           navigate("/problemlist");
           // alert(response.data.message)
         } else {
-          // console.log(response);
+          console.log(response);
         }
       })
       .catch(function (error) {
-        console.log(error.response.data);
+        console.log(error);
         // alert();
 
         // <Alert severity="error">{error.response.data.error}</Alert>
@@ -53,7 +59,7 @@ export default function CreateProblem() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -69,7 +75,7 @@ export default function CreateProblem() {
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 5}}
+            sx={{ mt: 5 }}
           >
             <Grid container spacing={2}>
               <Grid item xs={3}>
@@ -101,7 +107,7 @@ export default function CreateProblem() {
                   name="probStatement"
                   autoComplete="Problem Statement"
                   multiline
-                  rows={4}
+                  minRows={4}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -141,6 +147,8 @@ export default function CreateProblem() {
                   label="Example 1 Inputs"
                   name="input1"
                   autoComplete="Example 1 Inputs"
+                  multiline
+                  minRows={2}
                 />
                 <TextField
                   margin="dense"
@@ -150,6 +158,8 @@ export default function CreateProblem() {
                   label="Example 1 Outputs"
                   name="output1"
                   autoComplete="Example 1 Outputs"
+                  multiline
+                  minRows={2}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -160,6 +170,8 @@ export default function CreateProblem() {
                   label="Example 2 Inputs"
                   name="input2"
                   autoComplete="Example 2 Inputs"
+                  multiline
+                  minRows={2}
                 />
                 <TextField
                   margin="dense"
@@ -169,9 +181,41 @@ export default function CreateProblem() {
                   label="Example 2 Outputs"
                   name="output2"
                   autoComplete="Example 2 Outputs"
+                  multiline
+                  minRows={2}
                 />
               </Grid>
 
+              <Grid item xs={12}>
+                <Divider>
+                  <Chip label="Test Cases" size="small" />
+                </Divider>
+              </Grid>
+
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="TCinput"
+                  label="Test Case Input"
+                  name="TCinput"
+                  autoComplete="Test Case Input"
+                  multiline
+                  minRows={2}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="TCoutput"
+                  label="Test Case Output"
+                  name="TCoutput"
+                  autoComplete="Test Case Output"
+                  multiline
+                  minRows={2}
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"

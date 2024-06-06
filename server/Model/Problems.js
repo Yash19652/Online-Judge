@@ -11,6 +11,17 @@ const exampleTestCaseSchema = new mongoose.Schema({
     }
   }, { _id : false });
 
+  const testCaseSchema = new mongoose.Schema({
+    TCinput: {
+      type: String,
+      required: true
+    },
+    TCoutput: {
+      type: String,
+      required: true
+    }
+  }, { _id : false });
+
 const problemSchema = new mongoose.Schema({
     probId: {
         type: String,
@@ -45,7 +56,11 @@ const problemSchema = new mongoose.Schema({
     ex_TC:{
         type : [exampleTestCaseSchema],
         required : true,
-    }
+    },
+    TC:{
+        type : testCaseSchema,
+        required : true,
+    },
 
 });
 

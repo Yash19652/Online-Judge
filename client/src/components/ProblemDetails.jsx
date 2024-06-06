@@ -37,9 +37,20 @@ const Examples = styled(Paper)(({ theme }) => ({
 const darkTheme = createTheme({ palette: { mode: "dark" } });
 const lightTheme = createTheme({ palette: { mode: "light" } });
 
+const renderTextWithNewlines = (text) => {
+  return text.split('\n').map((line, index) => (
+      <Stack direction="column" key={index}>
+          {line}
+          <br />
+      </Stack>
+  ));
+};
+
+
 const ProblemDetails = ({ recievedData }) => {
   return (
     <>
+      {console.log(recievedData.ex_TC)}
       <Grid spacing={2}>
         <Heading variant="outlined">{recievedData.probName}</Heading>
 
@@ -64,7 +75,7 @@ const ProblemDetails = ({ recievedData }) => {
                 {"Input"}
               </Grid>
               <Grid item xs={11}>
-                <Examples>{TC.input}</Examples>
+                <Examples>{renderTextWithNewlines(TC.input)}</Examples>
               </Grid>
             </Grid>
 
@@ -73,7 +84,7 @@ const ProblemDetails = ({ recievedData }) => {
                 {"Output"}
               </Grid>
               <Grid item xs={11}>
-                <Examples>{TC.output}</Examples>
+                <Examples>{renderTextWithNewlines(TC.output)}</Examples>
               </Grid>
             </Grid>
             </Grid>
