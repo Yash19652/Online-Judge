@@ -64,7 +64,7 @@ const CodeEditor = ({ recievedData }) => {
         toSendLang = "py";
       }
       const res = await Axios.post(
-        `${process.env.BACKEND_URL}/solve/run`,
+        `${import.meta.env.VITE_BACKEND_URL}/solve/run`,
         {
           language: toSendLang,
           code: code,
