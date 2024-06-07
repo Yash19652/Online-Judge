@@ -14,22 +14,31 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link ,useNavigate} from "react-router-dom";
-import {useState,useContext} from 'react'
-
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import Axios from 'axios'
 import { UserContext } from "./UserContext";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Register", "Login", "Logout"];
 
-
 function DrawerAppBar(props) {
-  const { userData , setUserData} = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+  const handleLogOut = async () => {
+    try {
+      const res = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`,{withCredentials: true})
+      
+    } catch (error) {
+      console.log("Error in logging out",error)
+    }
+    setUserData(null);
+    navigate("/login");
   };
 
   const drawer = (
@@ -39,24 +48,63 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {
+          <>
+            <ListItem disablePadding>
+              <Link to="/">
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <ListItemText primary="HOME" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            {!userData ? (
+              <>
+                <ListItem disablePadding>
+                  <Link to="/login">
+                    <ListItemButton sx={{ textAlign: "center" }}>
+                      <ListItemText primary="LOGIN" />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <Link to="/sign-up">
+                    <ListItemButton sx={{ textAlign: "center" }}>
+                      <ListItemText primary="REGISTER" />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              </>
+            ) : (
+              <>
+                <ListItem disablePadding>
+                  <Link to="/problemlist">
+                    <ListItemButton sx={{ textAlign: "center" }}>
+                      <ListItemText primary="PROBLEMS" />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton
+                    sx={{ textAlign: "center" }}
+                    onClick={handleLogOut}
+                  >
+                    <ListItemText primary="LOGOUT" />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            )}
+          </>
+        }
       </List>
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
-  const navigate= useNavigate()
-  const handleLogOut = () =>{
-    setUserData(null)
-    navigate('/login');
-  }
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -83,20 +131,28 @@ function DrawerAppBar(props) {
             <Link to="/">
               <Button sx={{ color: "#fff" }}>HOME</Button>
             </Link>
-              {userData ? (
-                <Link to="/problemlist">
-                  <Button sx={{ color: "#fff" }}>PROBLEMS</Button>
+            {userData ? (
+              <Link to="/problemlist">
+                <Button sx={{ color: "#fff" }}>PROBLEMS</Button>
+              </Link>
+            ) : (
+              ""
+            )}
+            {!userData ? (
+              <>
+                <Link to="/login">
+                  <Button sx={{ color: "#fff" }}>LOGIN</Button>
                 </Link>
-              ) : ""}
-              {!userData ? (<>
-              <Link to="/login">
-              <Button sx={{ color: "#fff" }}>LOGIN</Button>
-            </Link>
 
-            <Link to="/sign-up">
-              <Button sx={{ color: "#fff" }}>REGISTER</Button>
-            </Link></>) :
-            (<Button sx={{ color: "#fff" }} onClick={handleLogOut}>LOGOUT</Button>)}
+                <Link to="/sign-up">
+                  <Button sx={{ color: "#fff" }}>REGISTER</Button>
+                </Link>
+              </>
+            ) : (
+              <Button sx={{ color: "#fff" }} onClick={handleLogOut}>
+                LOGOUT
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
