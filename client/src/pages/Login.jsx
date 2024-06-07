@@ -18,10 +18,14 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect,useState ,useContext} from "react";
 const defaultTheme = createTheme();
 
+import { UserContext } from '../components/UserContext';
+
 export default function Login() {
+
+  const { setUserData } = useContext(UserContext);
 
   const location = useLocation()
   const [alertMsg,setAlertMsg] = useState(location.state ? location.state.msg : null)
@@ -52,6 +56,7 @@ export default function Login() {
       .then(function (response) {
         if (response.status) {
           console.log(response.data.message);
+          setUserData(data);
           navigate("/");
           // alert(response.data.message)
         } else {

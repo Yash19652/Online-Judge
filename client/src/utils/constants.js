@@ -1,7 +1,7 @@
 export const LANGUAGE_VALUES ={
     "C++" : "cpp",
     "Python" : "python",
-    "Java" : "java",
+    // "Java" : "java",
 }
 
 export const CODE_SNIPPETS = {

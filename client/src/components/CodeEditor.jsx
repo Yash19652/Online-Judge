@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState ,useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 import Editor from "@monaco-editor/react";
 import LanguageSelector from "./LanguageSelector";
@@ -21,7 +21,16 @@ const CodeEditor = ({ recievedData }) => {
   const targetRef = useRef(null);
 
   const [lang, setLang] = useState("cpp");
-  const [code, setCode] = useState(CODE_SNIPPETS[lang]);
+  // const [code, setCode] = useState(CODE_SNIPPETS[lang]);
+
+  const [code, setCode] = useState(() => {
+    const savedCode = localStorage.getItem('code');
+    return savedCode ? savedCode : CODE_SNIPPETS[lang];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('code', code);
+  }, [code]);
 
   const onMount = (editor) => {
     editorRef.current = editor;
@@ -37,7 +46,7 @@ const CodeEditor = ({ recievedData }) => {
   };
 
   const [tabValue, setTabValue] = useState("1");
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(recievedData.ex_TC[0].input);
   const handleInput = (e) => {
     setInput(e.target.value);
   };
@@ -74,8 +83,8 @@ const CodeEditor = ({ recievedData }) => {
       if (targetRef.current) {
         targetRef.current.scrollIntoView({ behavior: "smooth" });
       }
-      setOutput("error");
-      // console.log(error);
+      setOutput(error.response.data.error);
+      console.log(error);
     }
   };
 

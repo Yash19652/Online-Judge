@@ -31,12 +31,12 @@ return new Promise((resolve, reject) => {
         const command2 = `cd ${outputPath} && .\\${outputFileName} < ${inputFilePath}`;
         exec(command2, (error, stdout, stderr) => {
             if (error) {
-                console.log(error)
+                // console.log(error)
                 reject(stderr);
                 return;
             }
             if (stderr) {
-                console.log(stderr)
+                // console.log(stderr)
                 reject(stderr);
                 return;
             }

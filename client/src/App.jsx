@@ -9,24 +9,26 @@ import ProblemList from "./pages/ProblemList";
 import UpdateProblem from "./pages/UpdateProblem";
 import CreateProblem from "./pages/CreateProblem";
 import Problem from "./pages/Problem";
+import { UserProvider } from "./components/UserContext";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/problemlist" element={<ProblemList />} />
-          <Route path="/updateproblem" element={<UpdateProblem />} />
-          <Route path="/createproblem" element={<CreateProblem />} />
-          <Route path="/problem/:ID" element={<Problem />} />
-          
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/problemlist" element={<ProblemList />} />
+            <Route path="/updateproblem" element={<UpdateProblem />} />
+            <Route path="/createproblem" element={<CreateProblem />} />
+            <Route path="/problem/:ID" element={<Problem />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </UserProvider>
     </>
   );
 }
