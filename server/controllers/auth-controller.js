@@ -106,7 +106,7 @@ loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: User._id, email: email , role:user.role},
+      { id: user._id, email: email , role:user.role},
       process.env.JWT_SECRET_KEY,
       { expiresIn: "2d" }
     );

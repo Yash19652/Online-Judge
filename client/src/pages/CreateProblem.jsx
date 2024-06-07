@@ -148,7 +148,7 @@ export default function CreateProblem() {
                   name="input1"
                   autoComplete="Example 1 Inputs"
                   multiline
-                  minRows={2}
+                  
                 />
                 <TextField
                   margin="dense"
@@ -159,7 +159,7 @@ export default function CreateProblem() {
                   name="output1"
                   autoComplete="Example 1 Outputs"
                   multiline
-                  minRows={2}
+                  
                 />
               </Grid>
               <Grid item xs={6}>
@@ -171,7 +171,7 @@ export default function CreateProblem() {
                   name="input2"
                   autoComplete="Example 2 Inputs"
                   multiline
-                  minRows={2}
+                  
                 />
                 <TextField
                   margin="dense"
@@ -182,7 +182,7 @@ export default function CreateProblem() {
                   name="output2"
                   autoComplete="Example 2 Outputs"
                   multiline
-                  minRows={2}
+                  
                 />
               </Grid>
 

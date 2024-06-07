@@ -31,21 +31,6 @@ const createProblem = async (req, res) => {
       TCoutput,
     } = req.body;
 
-    console.log("printed here : ",{
-      probId,
-      probName,
-      probStatement,
-      difficulty,
-      topic,
-      companyAsked,
-      input1,
-      output1,
-      input2,
-      output2,
-      TCinput,
-      TCoutput,
-    })
-  
     if (
       !(probId && probName && probStatement && difficulty && topic && input1 && input2 && output1 && output2 && TCinput && TCoutput)
     ) {

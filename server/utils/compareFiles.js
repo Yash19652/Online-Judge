@@ -15,9 +15,6 @@ const compareFiles =(file1, file2)=> {
   const maxLength = Math.max(lines1.length, lines2.length);
   for (var i = 0; i < maxLength; i++) {
     if (lines1[i] != lines2[i]) {
-      console.log(`Files differ at line ${i + 1}`);
-      console.log(`File 1: ${lines1[i]}`);
-      console.log(`File 2: ${lines2[i]}`);
       return {verdict :false , lineNo : i+1};
     }
   }

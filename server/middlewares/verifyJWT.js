@@ -12,6 +12,7 @@ const verifyJWT = (req,res,next) =>{
             if(err) return res.status(401).json({message:"Invalid Token"});
 
             req.role = decodedToken.role;//what we sent in the sign of token during login
+            req.userId = decodedToken.id;
             next();
 
     })

@@ -3,13 +3,11 @@ const Schema = mongoose.Schema;
 
 const SubmissionSchema = new Schema({
   userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
   },
   probId: {
-    type: Schema.Types.ObjectId,
-    ref: "Problem",
+    type: String,
     required: true,
   },
   language: {
@@ -24,16 +22,13 @@ const SubmissionSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  results: 
-    {
-      verdict: Boolean,
-      testCasesPassed: String,
-    },
-  
-  status: {
+  Accepted: {
+    type: Boolean,
+    required: false,
+  },
+  testCasesPassed: {
     type: String,
-    enum: ["pending", "completed"],
-    default: "pending",
+    default: "0",
   },
 });
 

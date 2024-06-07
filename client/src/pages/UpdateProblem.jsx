@@ -3,22 +3,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from "@mui/material/Alert";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import EditNoteSharpIcon from '@mui/icons-material/EditNoteSharp';
-
+import {Chip ,Divider} from '@mui/material'
 import Axios from "axios";
 
 const defaultTheme = createTheme();
@@ -163,6 +155,8 @@ export default function UpdateProblem() {
                   name="input1"
                   autoComplete="Example 1 Inputs"
                   defaultValue={recievedData.ex_TC[0].input}
+                  multiline
+                  
                 />
                 <TextField
                   margin="dense"
@@ -173,6 +167,8 @@ export default function UpdateProblem() {
                   name="output1"
                   autoComplete="Example 1 Outputs"
                   defaultValue={recievedData.ex_TC[0].output}
+                  multiline
+                  
                 />
               </Grid>
               <Grid item xs={6}>
@@ -184,6 +180,8 @@ export default function UpdateProblem() {
                   name="input2"
                   autoComplete="Example 2 Inputs"
                   defaultValue={recievedData.ex_TC[1].input}
+                  multiline
+                  
                 />
                 <TextField
                   margin="dense"
@@ -194,6 +192,42 @@ export default function UpdateProblem() {
                   name="output2"
                   autoComplete="Example 2 Outputs"
                   defaultValue={recievedData.ex_TC[1].output}
+                  multiline
+                
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Divider>
+                  <Chip label="Test Cases" size="small" />
+                </Divider>
+              </Grid>
+
+
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="TCinput"
+                  label="Test Case Input"
+                  name="TCinput"
+                  autoComplete="Test Case Input"
+                  multiline
+                  minRows={2}
+                  defaultValue={recievedData.TC.TCinput}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="TCoutput"
+                  label="Test Case Output"
+                  name="TCoutput"
+                  autoComplete="Test Case Output"
+                  multiline
+                  minRows={2}
+                  defaultValue={recievedData.TC.TCoutput}
                 />
               </Grid>
 

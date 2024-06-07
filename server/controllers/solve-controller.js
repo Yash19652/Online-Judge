@@ -5,6 +5,7 @@ const { executeCpp, executeJava, executePy } = require("../utils/executeFile");
 const { generateInputFile } = require("../utils/generateInputFile");
 const { compareFiles } = require("../utils/compareFiles");
 const Problems = require("../Model/Problems");
+const Submissions = require("../Model/Submissions");
 
 const runSolution = async (req, res) => {
   const { language = "cpp", code, input } = req.body;
@@ -81,11 +82,31 @@ const submitSolution = async (req, res) => {
 
     const result = compareFiles(outputPath,expectedOutputPath);
 
-    console.log(result);
     res.status(200).json({result});
+    
+    userId = req.userId;
+    console.log(userId)
+    const Accepted = result.verdict;
+    const testCasesPassed = Accepted ? result.lineNo:(result.lineNo)-1 ;
+
+    try {
+      const problem = await Submissions.create({
+        userId,
+        probId,
+        language,
+        code,
+        Accepted,
+        testCasesPassed,
+      });
+
+
+    } catch (error) {
+      console.log({message:"error in registering the submission",error:error});
+    }
+
   }
   catch(error){
-    console.log(error);
+    console.log({message:"error in submitting the problem",error:error});
   }
 
 

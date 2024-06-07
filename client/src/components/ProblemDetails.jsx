@@ -50,7 +50,7 @@ const renderTextWithNewlines = (text) => {
 const ProblemDetails = ({ recievedData }) => {
   return (
     <>
-      {console.log(recievedData.ex_TC)}
+      {console.log(recievedData)}
       <Grid spacing={2}>
         <Heading variant="outlined">{recievedData.probName}</Heading>
 
