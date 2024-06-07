@@ -30,7 +30,7 @@ export default function CreateProblem() {
     console.log("In frontend",data);
 
     const res = await Axios.post(
-      "http://localhost:5000/problemlist/create",
+      `${import.meta.env.VITE_BACKEND_URL}/problemlist/create`,
       data,
       { withCredentials: true }
     )

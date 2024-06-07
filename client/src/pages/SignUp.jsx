@@ -36,7 +36,7 @@ export default function SignUp() {
       const data = Object.fromEntries(formData)
       // console.log(data);
 
-      const res = await Axios.post('http://localhost:5000/register',data)
+      const res = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`,data)
       .then(function (response) {
         if(response.status)
           {

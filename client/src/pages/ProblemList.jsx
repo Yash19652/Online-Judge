@@ -40,7 +40,7 @@ const ProblemList = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await Axios.get("http://localhost:5000/problemList/", {
+      const response = await Axios.get(`${import.meta.env.VITE_BACKEND_URL}/problemList/`, {
         withCredentials: true,
       });
       setData(response.data.data);
@@ -173,7 +173,7 @@ const ProblemList = () => {
     console.log("Delete row _id:", selectedRow.original._id);
     const prob_id = selectedRow.original._id;
     const res = await Axios.post(
-      "http://localhost:5000/problemlist/delete",
+      `${import.meta.env.VITE_BACKEND_URL}/problemlist/delete`,
       { _id: prob_id },
       { withCredentials: true }
     )

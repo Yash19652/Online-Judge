@@ -50,9 +50,9 @@ export default function Login() {
     const password = formData.get("password");
 
     const data = Object.fromEntries(formData);
-    // console.log(data);
+    //  console.log(data);
     
-    const res = await Axios.post("http://localhost:5000/login", data , {withCredentials:true})
+    const res = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data , {withCredentials:true})
       .then(function (response) {
         if (response.status) {
           console.log(response.data.message);

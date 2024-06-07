@@ -31,7 +31,7 @@ export default function UpdateProblem() {
     
     data._id = recievedData._id
     // console.log(data);
-    const res = await Axios.post("http://localhost:5000/problemlist/update", data , {withCredentials:true})
+    const res = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/problemlist/update`, data , {withCredentials:true})
       .then(function (response) {
         if (response.status) {
           console.log(response);
