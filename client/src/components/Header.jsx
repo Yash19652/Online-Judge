@@ -20,7 +20,6 @@ import Axios from 'axios'
 import { UserContext } from "./UserContext";
 
 const drawerWidth = 240;
-const navItems = ["Home", "Register", "Login", "Logout"];
 
 function DrawerAppBar(props) {
   const { userData, setUserData } = useContext(UserContext);
@@ -107,9 +106,10 @@ function DrawerAppBar(props) {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ display: "flex"}}>
+    
+    <Box sx={{ display: "flex", marginTop:1 , marginX:1 }}>
       <CssBaseline />
-      <AppBar component="nav" position="static" sx={{backgroundColor: '#323232', color: 'white'}}>
+      <AppBar component="nav" position="static" sx={{backgroundColor: '#323232', color: 'white' , borderRadius:2}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -177,6 +177,7 @@ function DrawerAppBar(props) {
         </Drawer>
       </nav>
     </Box>
+    
   );
 }
 

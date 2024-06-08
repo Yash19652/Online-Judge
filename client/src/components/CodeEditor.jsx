@@ -149,11 +149,12 @@ const CodeEditor = ({ recievedData }) => {
 
       // setOutput(res);
     } catch (error) {
-      setTabValue("3");
+      setTabValue("3");      
       if (targetRef.current) {
         targetRef.current.scrollIntoView({ behavior: "smooth" });
       }
-      setVerdict("error");
+      setVerdict([]);
+      setVerdictMessage("Error in code")
       // console.log(error);
     }
   };

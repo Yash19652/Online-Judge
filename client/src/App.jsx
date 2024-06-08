@@ -10,6 +10,10 @@ import UpdateProblem from "./pages/UpdateProblem";
 import CreateProblem from "./pages/CreateProblem";
 import Problem from "./pages/Problem";
 import { UserProvider } from "./components/UserContext";
+import SubmissionPage from "./pages/SubmissionPage";
+import SubmittedCode from './pages/SubmittedCode';
+
+
 
 function App() {
   return (
@@ -25,6 +29,8 @@ function App() {
             <Route path="/updateproblem" element={<UpdateProblem />} />
             <Route path="/createproblem" element={<CreateProblem />} />
             <Route path="/problem/:ID" element={<Problem />} />
+            <Route path="/submission" element={<SubmissionPage />} />
+            <Route path="/submittedcode" element={<SubmittedCode />} />
           </Routes>
           <Footer />
         </BrowserRouter>

@@ -12,6 +12,7 @@ dotenv.config();
 const authRouter = require("./routes/auth")
 const problemsListRouter = require("./routes/problemList")
 const solveRouter = require("./routes/solveRouter")
+const submissionRouter = require("./routes/submissionRouter")
 const verifyJWT = require("./middlewares/verifyJWT");
 
 app.use(bodyParser.json());
@@ -36,6 +37,7 @@ app.use("/", authRouter)
 // app.use(verifyJWT)
 app.use("/problemList",verifyJWT,problemsListRouter)
 app.use("/solve",verifyJWT,solveRouter)
+app.use("/getSubmissions",verifyJWT,submissionRouter)
 
 
 app.listen(process.env.PORT, () => {

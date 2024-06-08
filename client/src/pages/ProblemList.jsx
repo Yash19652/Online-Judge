@@ -211,7 +211,6 @@ const ProblemList = () => {
     },
     muiTableBodyCellProps: ({ cell }) => ({
       onClick: (event) => {
-        console.log(cell.row);
         const ID = cell.row.original._id;
         const problemData = cell.row.original;
         if (cell.column.id !== "actions") {

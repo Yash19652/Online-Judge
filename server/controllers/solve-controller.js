@@ -102,11 +102,35 @@ const submitSolution = async (req, res) => {
 
     } catch (error) {
       console.log({message:"error in registering the submission",error:error});
+      res.json({error});
     }
 
   }
   catch(error){
     console.log({message:"error in submitting the problem",error:error});
+    res.json({error})
+
+    try {
+
+    userId = req.userId;
+    const Accepted = false;
+    const testCasesPassed = 0 ;
+
+      const problem = await Submissions.create({
+        userId,
+        probId,
+        language,
+        code,
+        Accepted,
+        testCasesPassed,
+      });
+
+
+    } catch (error) {
+      console.log({message:"error in registering the submission",error:error});
+      res.json({error})
+    }
+
   }
 
 
