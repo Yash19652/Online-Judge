@@ -86,10 +86,13 @@ const updateProblem = async (req, res) => {
       output1,
       input2,
       output2,
+      TCinput,
+      TCoutput
     } = req.body;
     
     const ex_TC = [{input:input1,output:output1},{input:input2,output:output2}]
     const Companies_Asked = companyAsked.split(",")
+    const TC = {TCinput:TCinput,TCoutput:TCoutput}
     const problem = await Problems.updateOne(
       { _id: _id },
       {
@@ -101,6 +104,7 @@ const updateProblem = async (req, res) => {
           topic: topic,
           companyAsked: Companies_Asked,
           ex_TC: ex_TC,
+          TC:TC,
         },
       }
     );

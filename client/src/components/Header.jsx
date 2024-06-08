@@ -107,9 +107,9 @@ function DrawerAppBar(props) {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
-      <AppBar component="nav" position="static">
+      <AppBar component="nav" position="static" sx={{backgroundColor: '#323232', color: 'white'}}>
         <Toolbar>
           <IconButton
             color="inherit"

@@ -21,7 +21,7 @@ const runSolution = async (req, res) => {
 
   try {
     const filePath = await generateFile(language, code , "codes");
-    const inputFilePath = await generateInputFile(input);
+    const inputFilePath = await generateInputFile(language,input,"inputs");
     let output;
     switch (language) {
       case "cpp":
@@ -58,7 +58,7 @@ const submitSolution = async (req, res) => {
   const TCinput = TC.TCinput;
   const TCoutput = TC.TCoutput;
   
-  const inputPath = generateFile("txt",TCinput,"TCinput");
+  const inputPath = generateInputFile(language,TCinput,"TCinput");
   const expectedOutputPath = generateFile("txt",TCoutput,"TCoutput");
 
   const filePath = await generateFile(language, code , "codes");

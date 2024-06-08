@@ -11,7 +11,7 @@ if (!fs.existsSync(outputPath)) {
 
 const executeCpp = (filePath, inputFilePath) => {
   const jobId = path.basename(filePath).split(".")[0];
-  const outputFileName = `${jobId}.exe`; // depends upon the environment
+  const outputFileName = `${jobId}.out`; // depends upon the environment
   const outPath = path.join(outputPath, outputFileName);
 
 return new Promise((resolve, reject) => {
@@ -28,15 +28,15 @@ return new Promise((resolve, reject) => {
             return;
         }
 
-        const command2 = `cd ${outputPath} && .\\${outputFileName} < ${inputFilePath}`;
+        const command2 = `cd ${outputPath} && ./${outputFileName} < ${inputFilePath}`;
         exec(command2, (error, stdout, stderr) => {
             if (error) {
-                // console.log(error)
+                console.log(error)
                 reject(stderr);
                 return;
             }
             if (stderr) {
-                // console.log(stderr)
+                console.log(stderr)
                 reject(stderr);
                 return;
             }
@@ -58,13 +58,16 @@ const executePy = (filePath, inputFilePath) => {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        reject({ error, stderr });
-      }
-      if (stderr) {
+        console.log(error)
         reject(stderr);
-      }
-      // resolve(stdout)
-      resolve(stdout);
+        return;
+    }
+    if (stderr) {
+        console.log(stderr)
+        reject(stderr);
+        return;
+    }
+    resolve(stdout);
     });
   });
 };
