@@ -16,16 +16,18 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import AddIcon from "@mui/icons-material/Add";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import Chip from "@mui/material/Chip";
+import { UserContext } from "../components/UserContext";
+import { useContext } from "react";
 
 const ProblemList = () => {
   const [role, setRole] = useState("");
   const [data, setData] = useState({});
   const [selectedRow, setSelectedRow] = useState();
   const navigate = useNavigate();
+  const { userData } = useContext(UserContext);
 
   const [open, setOpen] = useState(false);
 
@@ -59,19 +61,20 @@ const ProblemList = () => {
   }, [fetchData]);
   // console.log(data);
 
+  const solvedProblems = userData.solvedProblems
+  console.log(solvedProblems,userData)
+
   const columns = useMemo(() => {
     const baseColumns = [
       {
         accessorKey: "status",
         header: "Status",
         size: 75,
-        Cell: ({ cell }) => {
-          return cell.getValue() !== undefined ? (
-            <RadioButtonUncheckedIcon color="warning" />
-          ) : (
-            <TaskAltIcon color="success" />
-          );
-        },
+        Cell: ({ row }) => (
+          solvedProblems.includes(row.original.probId)
+          ? <TaskAltIcon color="success" />
+          : <RadioButtonUncheckedIcon color="warning" />
+        )
       },
       {
         accessorKey: "probId",

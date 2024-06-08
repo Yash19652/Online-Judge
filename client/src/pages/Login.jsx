@@ -55,8 +55,8 @@ export default function Login() {
     const res = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data , {withCredentials:true})
       .then(function (response) {
         if (response.status) {
-          console.log(response.data.message);
-          setUserData(data);
+          const recievedUserData = response.data.user;
+          setUserData(recievedUserData);
           navigate("/");
           // alert(response.data.message)
         } else {

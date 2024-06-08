@@ -16,7 +16,7 @@ const Problem = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          // border: "1px solid black",
+          backgroundColor:"#C7C8CC",
           minHeight: "100vh",
         }}
       >

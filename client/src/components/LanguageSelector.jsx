@@ -24,7 +24,7 @@ const LanguageSelector = ({language,onSelect}) => {
                   justifyContent: "center",
                 }}
               >
-                <FormControl sx={{ width: 0.5, marginY: 1 }}>
+                <FormControl sx={{ width: 0.5, marginY: 1 ,backgroundColor:"white"}}>
                   <InputLabel id="language">Language</InputLabel>
                   <Select
                     labelId="language"

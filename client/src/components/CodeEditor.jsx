@@ -15,10 +15,14 @@ import Axios from "axios";
 import Chip from '@mui/material/Chip';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { UserContext } from "./UserContext";
+import { useContext } from "react";
+
 
 const CodeEditor = ({ recievedData }) => {
   const editorRef = useRef();
   const targetRef = useRef(null);
+  const { userData ,setUserData } = useContext(UserContext);
 
   const [lang, setLang] = useState("cpp");
   // const [code, setCode] = useState(CODE_SNIPPETS[lang]);
@@ -54,7 +58,7 @@ const CodeEditor = ({ recievedData }) => {
     setTabValue(newValue);
   };
 
-  const [output, setOutput] = useState("Output");
+  const [output, setOutput] = useState("");
 
   Axios.defaults.withCredentials = true;
   const handleRun = async () => {
@@ -147,6 +151,19 @@ const CodeEditor = ({ recievedData }) => {
       const Result = res.data.result;
       handleVerdict(Result);
 
+      const probId = recievedData.probId;
+      if(Result.verdict)
+        {
+          if (!userData.solvedProblems.includes(probId)) 
+            {
+            setUserData(prevUserData => ({
+                ...prevUserData,
+                solvedProblems: [...prevUserData.solvedProblems, probId]
+            }));
+        }
+      }
+
+
       // setOutput(res);
     } catch (error) {
       setTabValue("3");      
@@ -218,6 +235,7 @@ const CodeEditor = ({ recievedData }) => {
               rows={4}
               value={input}
               onChange={handleInput}
+              sx={{backgroundColor:"white"}}
             />
           </TabPanel>
           <TabPanel value="2">
@@ -231,6 +249,7 @@ const CodeEditor = ({ recievedData }) => {
               InputProps={{
                 readOnly: true,
               }}
+              sx={{backgroundColor:"white"}}
             />
           </TabPanel>
           <TabPanel value="3">
@@ -249,6 +268,7 @@ const CodeEditor = ({ recievedData }) => {
                   </InputAdornment>
               ),
               }}
+              sx={{backgroundColor:"white"}}
             />
           </TabPanel>
         </TabContext>

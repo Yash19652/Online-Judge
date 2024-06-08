@@ -109,21 +109,20 @@ const ProblemDetails = ({ recievedData }) => {
       
       <Grid spacing={2}>
         <Heading variant="outlined">{recievedData.probName}</Heading>
-        <Texts elevation={0}>
-          <Button
+        
+        <Stack direction="row" spacing={1}>
+          {recievedData.companyAsked.map((company, index) => (
+            <Chip label={company} key={index} sx={{backgroundColor:"grey"}}/>
+          ))}
+        </Stack>
+
+        <Button
             variant="contained"
-            sx={{ margin: 1, marginX: "auto", width: "30%" }}
+            sx={{ marginY: 2, marginX:1.5, width: "30%" }}
             onClick={() => getSubmissions(recievedData.probId)}
           >
             Submissions
           </Button>
-        </Texts>
-
-        <Stack direction="row" spacing={1}>
-          {recievedData.companyAsked.map((company, index) => (
-            <Chip label={company} key={index} />
-          ))}
-        </Stack>
 
         <Statement variant="outlined">{recievedData.probStatement}</Statement>
 
@@ -133,9 +132,9 @@ const ProblemDetails = ({ recievedData }) => {
             <br />
             <br />
             <Divider />
-            <Grid sx={{ backgroundColor: "#EEEEEE", borderRadius: "2" }} key={index}>
-              <Grid container spacing={1}>
-                <Grid item xs={1} sx={{ alignContent: "center" }}>
+            <Grid sx={{ backgroundColor: "#EEEEEE", borderRadius:1, margin:2}} key={index}>
+              <Grid container spacing={1} sx={{marginLeft:1}}>
+                <Grid item xs={1} sx={{ alignContent: "center"}}>
                   {"Input"}
                 </Grid>
                 <Grid item xs={11}>
@@ -143,7 +142,7 @@ const ProblemDetails = ({ recievedData }) => {
                 </Grid>
               </Grid>
 
-              <Grid container spacing={1}>
+              <Grid container spacing={1} sx={{marginLeft:1}}>
                 <Grid item xs={1} sx={{ alignContent: "center" }}>
                   {"Output"}
                 </Grid>

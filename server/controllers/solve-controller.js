@@ -6,6 +6,7 @@ const { generateInputFile } = require("../utils/generateInputFile");
 const { compareFiles } = require("../utils/compareFiles");
 const Problems = require("../Model/Problems");
 const Submissions = require("../Model/Submissions");
+const User = require("../Model/Users");
 
 const runSolution = async (req, res) => {
   const { language = "cpp", code, input } = req.body;
@@ -84,7 +85,7 @@ const submitSolution = async (req, res) => {
 
     res.status(200).json({result});
     
-    userId = req.userId;
+    const userId = req.userId;
     console.log(userId)
     const Accepted = result.verdict;
     const testCasesPassed = Accepted ? result.lineNo:(result.lineNo)-1 ;
@@ -98,6 +99,21 @@ const submitSolution = async (req, res) => {
         Accepted,
         testCasesPassed,
       });
+
+      if(Accepted)
+        {
+          // add in solved problems
+          try {
+            await User.updateOne(
+              { _id: userId },
+              { $addToSet: { solvedProblems: probId } }
+          );
+          console.log('Solved problem added successfully.');
+
+          } catch (error) {
+            console.log("error in marking problem as solved",error)
+          }
+        }
 
 
     } catch (error) {

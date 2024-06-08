@@ -123,6 +123,7 @@ loginUser = async (req, res) => {
       message: "Successfully LoggedIn",
       success: true,
       token,
+      user:user,
     });
   } catch (error) {
     console.log(error);
