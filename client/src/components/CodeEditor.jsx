@@ -1,39 +1,40 @@
-import React, { useRef, useState ,useEffect } from "react";
-import { Box, Grid } from "@mui/material";
+import React, { useRef, useState ,useEffect ,useContext} from "react";
+import { Box ,TextField ,Chip ,InputAdornment ,Tab ,Stack ,Button} from "@mui/material";
 import Editor from "@monaco-editor/react";
 import LanguageSelector from "./LanguageSelector";
 import { CODE_SNIPPETS } from "../utils/constants";
-import Result from "./Result";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { TextField } from "@mui/material";
 import Axios from "axios";
-import Chip from '@mui/material/Chip';
-import InputAdornment from '@mui/material/InputAdornment';
-
 import { UserContext } from "./UserContext";
-import { useContext } from "react";
 
 
 const CodeEditor = ({ recievedData }) => {
+
   const editorRef = useRef();
   const targetRef = useRef(null);
   const { userData ,setUserData } = useContext(UserContext);
-
   const [lang, setLang] = useState("cpp");
+  const [verdict, setVerdict] = useState([]);
+  const [verdictMessage,setVerdictMessage] = useState("")
+  const [tabValue, setTabValue] = useState("1");
+  const [input, setInput] = useState(recievedData.ex_TC[0].input);
+  const [output, setOutput] = useState("");
+  
   // const [code, setCode] = useState(CODE_SNIPPETS[lang]);
 
   const [code, setCode] = useState(() => {
-    const savedCode = localStorage.getItem('code');
+    const savedCode 
+    = recievedData.probId === localStorage.getItem('probId') 
+    ? localStorage.getItem('code') 
+    : null;
     return savedCode ? savedCode : CODE_SNIPPETS[lang];
   });
 
   useEffect(() => {
     localStorage.setItem('code', code);
+    localStorage.setItem('probId', recievedData.probId);
   }, [code]);
 
   const onMount = (editor) => {
@@ -45,20 +46,18 @@ const CodeEditor = ({ recievedData }) => {
     setLang(language);
     setCode(CODE_SNIPPETS[language]);
   };
+
   const handleCodeChange = (value) => {
     setCode(value);
   };
 
-  const [tabValue, setTabValue] = useState("1");
-  const [input, setInput] = useState(recievedData.ex_TC[0].input);
   const handleInput = (e) => {
     setInput(e.target.value);
   };
+
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-
-  const [output, setOutput] = useState("");
 
   Axios.defaults.withCredentials = true;
   const handleRun = async () => {
@@ -91,9 +90,6 @@ const CodeEditor = ({ recievedData }) => {
       console.log(error);
     }
   };
-
-  const [verdict, setVerdict] = useState([]);
-  const [verdictMessage,setVerdictMessage] = useState("")
 
   const handleVerdict = (Result) => {
     const pass = Result.verdict;
@@ -214,16 +210,17 @@ const CodeEditor = ({ recievedData }) => {
       </Stack>
 
       {/* i/p o/p verdict */}
-      <Box ref={targetRef} sx={{ width: "100%", typography: "body1" }}>
+      <Box ref={targetRef} sx={{ width: "100%", typography: "body1"}}>
         <TabContext value={tabValue}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleTabChange}
               aria-label="lab API tabs example"
+              
             >
-              <Tab label="INPUT" value="1" />
-              <Tab label="OUTPUT" value="2" />
-              <Tab label="VERDICT" value="3" />
+              <Tab label="INPUT" value="1" sx={{ color: 'white', fontWeight: 'bold' }} />
+              <Tab label="OUTPUT" value="2" sx={{ color: 'white', fontWeight: 'bold' }}/>
+              <Tab label="VERDICT" value="3" sx={{ color: 'white', fontWeight: 'bold' }}/>
             </TabList>
           </Box>
           <TabPanel value="1">

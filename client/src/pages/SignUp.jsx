@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import {Link, useNavigate} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,9 +11,45 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from '@mui/material/Alert';
+import backgroundImage from '../assets/loginBg.png';
+import { styled } from '@mui/system';
 
 import Axios from 'axios'
+
+const Background = styled(Box)({
+  height: '100vh',
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+});
+
+const textFieldStyles = {
+  '& .MuiInputBase-input': {
+    color: 'white', // Text color
+  },
+  '& .MuiInputLabel-root': {
+    color: 'white', // Label color
+    '&.Mui-focused': {
+      color: 'white', // Label color when focused
+    },
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'white', // Border color
+    },
+    '&:hover fieldset': {
+      borderColor: 'white', // Border color on hover
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'white', // Border color when focused
+    },
+  },
+};
+
 
 
 
@@ -63,12 +98,13 @@ export default function SignUp() {
   };
 
   return (
+    <Background> 
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{backgroundColor: "rgba(0, 0, 0, 0.178)",backdropFilter:"blur(10px)",color:"white", paddingBottom:2 ,border:"1px solid white" , borderRadius:2}}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -78,7 +114,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            SIGN UP
           </Typography>
           <Box
             component="form"
@@ -95,7 +131,7 @@ export default function SignUp() {
                   fullWidth
                   id="firstname"
                   label="First Name"
-                  autoFocus
+                  sx={textFieldStyles}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -106,6 +142,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastname"
                   autoComplete="family-name"
+                  sx={textFieldStyles}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -116,6 +153,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  sx={textFieldStyles}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -127,14 +165,9 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  sx={textFieldStyles}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -146,7 +179,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-start">
               <Grid item>
-                <Link to ='/login'>
+                <Link to ='/login' style={{ color: 'white' }}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -156,5 +189,6 @@ export default function SignUp() {
         {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
+    </Background>
   );
 }

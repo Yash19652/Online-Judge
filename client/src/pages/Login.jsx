@@ -11,17 +11,77 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from "@mui/material/Alert";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Alert from '@mui/material/Alert';
 import Axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect,useState ,useContext} from "react";
 const defaultTheme = createTheme();
-
+import backgroundImage from '../assets/loginBg.png'; 
 import { UserContext } from '../components/UserContext';
+import { styled } from '@mui/system';
+
+const Background = styled(Box)({
+  height: '100vh',
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+});
+
+const textFieldStyles = {
+  '& .MuiInputBase-input': {
+    color: 'white', // Text color
+  },
+  '& .MuiInputLabel-root': {
+    color: 'white', // Label color
+    '&.Mui-focused': {
+      color: 'white', // Label color when focused
+    },
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'white', // Border color
+    },
+    '&:hover fieldset': {
+      borderColor: 'white', // Border color on hover
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'white', // Border color when focused
+    },
+  },
+};
+
+const styles = {
+  label: {
+    color: '#ffffff',
+    '&.Mui-focused': {
+      color: '#ffffff',
+    },
+  },
+  radio: {
+    color: '#ffffff',
+    '&.Mui-checked': {
+      color: '#ffffff',
+    },
+    '&.MuiRadio-root': {
+      color: '#ffffff',
+    },
+  },
+  formControlLabel: {
+    color: '#ffffff',
+    '& .MuiFormControlLabel-label': {
+      color: '#ffffff',
+    },
+  },
+};
+
 
 export default function Login() {
 
@@ -29,7 +89,6 @@ export default function Login() {
 
   const location = useLocation()
   const [alertMsg,setAlertMsg] = useState(location.state ? location.state.msg : null)
-  console.log(alertMsg)
   useEffect(() => {
     if (alertMsg) {
       const timer = setTimeout(() => {
@@ -66,6 +125,7 @@ export default function Login() {
       .catch(function (error) {
         console.log(error);
         alert(error.response.data.error);
+        
 
         // <Alert severity="error">{error.response.data.error}</Alert>
       });
@@ -74,22 +134,24 @@ export default function Login() {
   };
 
   return (
+    <Background>
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{backgroundColor: "rgba(0, 0, 0, 0.178)",backdropFilter:"blur(10px)",color:"white", paddingBottom:2 ,border:"1px solid white" , borderRadius:2}}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign In
+            SIGN IN
           </Typography>
           <Box
             component="form"
@@ -106,6 +168,7 @@ export default function Login() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  sx={textFieldStyles}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -117,11 +180,12 @@ export default function Login() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  sx={textFieldStyles}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControl>
-                  <FormLabel id="role">
+                  <FormLabel id="role" sx={styles.label}>
                     Role
                   </FormLabel>
                   <RadioGroup
@@ -133,21 +197,17 @@ export default function Login() {
                       value="user"
                       control={<Radio />}
                       label="User"
+                      sx={styles.formControlLabel}
                     />
                     <FormControlLabel
                       value="admin"
                       control={<Radio />}
                       label="Admin"
+                      sx={styles.formControlLabel}
                     />
                   </RadioGroup>
                 </FormControl>
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -159,7 +219,7 @@ export default function Login() {
             </Button>
             <Grid container justifyContent="flex-start">
               <Grid item>
-                <Link to="/sign-up">Dont have an account? Sign Up</Link>
+                <Link to="/sign-up" style={{ color: 'white' }}>Dont have an account? Sign Up</Link>
               </Grid>
             </Grid>
           </Box>
@@ -167,5 +227,6 @@ export default function Login() {
         {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
+    </Background>
   );
 }

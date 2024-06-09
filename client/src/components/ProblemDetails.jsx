@@ -107,12 +107,12 @@ const ProblemDetails = ({ recievedData }) => {
   return (
     <>
       
-      <Grid spacing={2}>
+      <Grid>
         <Heading variant="outlined">{recievedData.probName}</Heading>
         
         <Stack direction="row" spacing={1}>
           {recievedData.companyAsked.map((company, index) => (
-            <Chip label={company} key={index} sx={{backgroundColor:"grey"}}/>
+            <Chip label={company} key={index} sx={{backgroundColor:"grey" , color:"white"}}/>
           ))}
         </Stack>
 
@@ -128,11 +128,10 @@ const ProblemDetails = ({ recievedData }) => {
 
         {recievedData.ex_TC.map((TC, index) => (
           <>
-            {`Example ${index + 1}`}
+            <Box sx={{marginLeft:2 ,mb:0}}>{`Example ${index + 1}`}</Box>
             <br />
             <br />
-            <Divider />
-            <Grid sx={{ backgroundColor: "#EEEEEE", borderRadius:1, margin:2}} key={index}>
+            <Grid sx={{ backgroundColor: "#EEEEEE", borderRadius:1, marginX:2}} key={index}>
               <Grid container spacing={1} sx={{marginLeft:1}}>
                 <Grid item xs={1} sx={{ alignContent: "center"}}>
                   {"Input"}

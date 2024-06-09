@@ -20,7 +20,6 @@ export default function UpdateProblem() {
 
   const location = useLocation();
   const recievedData = location.state.problemDetails || {};
-  console.log(recievedData)
 
   Axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {

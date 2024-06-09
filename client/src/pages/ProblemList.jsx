@@ -42,15 +42,18 @@ const ProblemList = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await Axios.get(`${import.meta.env.VITE_BACKEND_URL}/problemList/`, {
-        withCredentials: true,
-      });
+      const response = await Axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/problemList/`,
+        {
+          withCredentials: true,
+        }
+      );
       setData(response.data.data);
       setRole(response.data.role);
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        const msg = error.response.data.message
-        navigate('/login' , {state : {msg}});
+        const msg = error.response.data.message;
+        navigate("/login", { state: { msg } });
       }
       console.error("There was an error fetching the data!", error);
     }
@@ -61,8 +64,7 @@ const ProblemList = () => {
   }, [fetchData]);
   // console.log(data);
 
-  const solvedProblems = userData.solvedProblems
-  console.log(solvedProblems,userData)
+  const solvedProblems = userData.solvedProblems;
 
   const columns = useMemo(() => {
     const baseColumns = [
@@ -70,11 +72,12 @@ const ProblemList = () => {
         accessorKey: "status",
         header: "Status",
         size: 75,
-        Cell: ({ row }) => (
-          solvedProblems.includes(row.original.probId)
-          ? <TaskAltIcon color="success" />
-          : <RadioButtonUncheckedIcon color="warning" />
-        )
+        Cell: ({ row }) =>
+          solvedProblems.includes(row.original.probId) ? (
+            <TaskAltIcon color="success" />
+          ) : (
+            <RadioButtonUncheckedIcon color="warning" />
+          ),
       },
       {
         accessorKey: "probId",
@@ -109,18 +112,19 @@ const ProblemList = () => {
           >
             <Chip
               label={cell.getValue()}
-              variant="outlined"
+              variant="contained"
               sx={(theme) => {
                 const color =
                   cell.getValue() === "hard"
-                    ? theme.palette.error.light
+                    ? theme.palette.error.dark
                     : cell.getValue() === "medium"
-                    ? theme.palette.warning.light
-                    : theme.palette.success.light;
+                    ? theme.palette.warning.dark
+                    : theme.palette.success.dark;
 
                 return {
-                  color: color,
+                  color: "white",
                   borderColor: color,
+                  backgroundColor: color,
                 };
               }}
             />
@@ -209,7 +213,7 @@ const ProblemList = () => {
       sx: {
         fontWeight: "normal",
         fontSize: "14px",
-        backgroundColor: "grey",
+        backgroundColor: "#3F72AF",
       },
     },
     muiTableBodyCellProps: ({ cell }) => ({
@@ -238,6 +242,19 @@ const ProblemList = () => {
           Add a problem
         </Button>
       ),
+    muiTableBodyRowProps: ({ row, table }) => {
+      const rowIndex = table
+        .getRowModel()
+        .rows.findIndex((r) => r.id === row.id);
+      return {
+        sx: {
+          backgroundColor: rowIndex % 2 === 0 ? "#F9F7F7" : "#DBE2EF",
+          "&:hover": {
+            backgroundColor: "#00ADB5", 
+          },
+        },
+      };
+    },
   });
 
   return (

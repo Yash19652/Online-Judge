@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import Axios from 'axios'
+import Axios from "axios";
 import { UserContext } from "./UserContext";
 
 const drawerWidth = 240;
@@ -25,19 +25,27 @@ function DrawerAppBar(props) {
   const { userData, setUserData } = useContext(UserContext);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
   const handleLogOut = async () => {
     try {
-      const res = await Axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`,{withCredentials: true})
-      
+      const res = await Axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/logout`,
+        { withCredentials: true }
+      );
     } catch (error) {
-      console.log("Error in logging out",error)
+      console.log("Error in logging out", error);
     }
     setUserData(null);
     navigate("/login");
+  };
+
+  const navigateToPage = (destination) => {
+    navigate(destination);
   };
 
   const drawer = (
@@ -50,38 +58,50 @@ function DrawerAppBar(props) {
         {
           <>
             <ListItem disablePadding>
-              <Link to="/">
-                <ListItemButton sx={{ textAlign: "center" }}>
-                  <ListItemText primary="HOME" />
-                </ListItemButton>
-              </Link>
+              <ListItemButton
+                sx={{ textAlign: "center" }}
+                onClick={() => {
+                  navigateToPage("/");
+                }}
+              >
+                <ListItemText primary="HOME" />
+              </ListItemButton>
             </ListItem>
             {!userData ? (
               <>
                 <ListItem disablePadding>
-                  <Link to="/login">
-                    <ListItemButton sx={{ textAlign: "center" }}>
-                      <ListItemText primary="LOGIN" />
-                    </ListItemButton>
-                  </Link>
+                  <ListItemButton
+                    sx={{ textAlign: "center" }}
+                    onClick={() => {
+                      navigateToPage("/login");
+                    }}
+                  >
+                    <ListItemText primary="LOGIN" />
+                  </ListItemButton>
                 </ListItem>
 
                 <ListItem disablePadding>
-                  <Link to="/sign-up">
-                    <ListItemButton sx={{ textAlign: "center" }}>
-                      <ListItemText primary="REGISTER" />
-                    </ListItemButton>
-                  </Link>
+                  <ListItemButton
+                    sx={{ textAlign: "center" }}
+                    onClick={() => {
+                      navigateToPage("/sign-up");
+                    }}
+                  >
+                    <ListItemText primary="REGISTER" />
+                  </ListItemButton>
                 </ListItem>
               </>
             ) : (
               <>
                 <ListItem disablePadding>
-                  <Link to="/problemlist">
-                    <ListItemButton sx={{ textAlign: "center" }}>
-                      <ListItemText primary="PROBLEMS" />
-                    </ListItemButton>
-                  </Link>
+                  <ListItemButton
+                    sx={{ textAlign: "center" }}
+                    onClick={() => {
+                      navigateToPage("/problemlist");
+                    }}
+                  >
+                    <ListItemText primary="PROBLEMS" />
+                  </ListItemButton>
                 </ListItem>
 
                 <ListItem disablePadding>
@@ -103,13 +123,14 @@ function DrawerAppBar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const navigate = useNavigate();
-
   return (
-    
-    <Box sx={{ display: "flex", marginTop:1 , marginX:1 }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
-      <AppBar component="nav" position="static" sx={{backgroundColor: '#323232', color: 'white' , borderRadius:2}}>
+      <AppBar
+        component="nav"
+        position="static"
+        sx={{ backgroundColor: "#112D4E", color: "white" }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -177,7 +198,6 @@ function DrawerAppBar(props) {
         </Drawer>
       </nav>
     </Box>
-    
   );
 }
 
