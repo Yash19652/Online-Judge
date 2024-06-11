@@ -23,8 +23,15 @@ Frontend : React
 <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="React Logo" width="200"/>
 </div>
 
-
-
+Authentication and Authorization :
+<div>
+<img src="https://github.com/Yash19652/Online-Judge/assets/113798540/40acbef9-ce41-4ac8-90e8-739fa5b4be1d" alt="aws Logo" width="200"/>
+</div>
+Deployement : 
+<div>
+<img src="https://github.com/Yash19652/Online-Judge/assets/113798540/dcd10ad5-794d-44ea-b994-e28cd4c5bd87" alt="aws Logo" width="200"/>
+<img src="https://github.com/Yash19652/Online-Judge/assets/113798540/1542d579-9159-4760-b590-1710f391849c" alt="aws Logo" width="200"/>
+</div>
 
 
 
