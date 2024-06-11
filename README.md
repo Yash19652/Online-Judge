@@ -1,8 +1,5 @@
 
-# Project Title
-
-CoderGeeks: An Online Coding Platform
-
+# CoderGeeks: An Online Coding Platform
 
 ## Overview
 
@@ -11,6 +8,26 @@ This is a full-stack application built using MERN-stack (MongoDB,ExpressJS,React
 
 ## Technologies Used
 
-![reactJS](https://www.google.com/url?sa=i&url=https%3A%2F%2Flevelup.gitconnected.com%2Fdisplay-images-in-react-8ff1f5b1cf9a&psig=AOvVaw0K8W28-lcm8x9UyshiSHbz&ust=1718205862492000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjG86Ht04YDFQAAAAAdAAAAABAQ)
+Database : MongoDB
+<div>
+<img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg" alt="MongoDB Logo" width="200"/>
+</div>
+Backend : NodeJS , ExpressJS
+<p>
+  <img src="https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg" alt="Node.js Logo" width="200"/>
+  <img src="https://github.com/Arpan783808/OJ-Project/assets/123624309/0f9c5307-3084-43fc-8350-771b83628b64" alt="Express.js Logo" width="200"/> 
+</p>
 
-<img src="https://github.com/Arpan783808/OJ-Project/assets/123624309/6098952d-49c0-493f-9477-56c5848b5f88" height="150" width="150"/>
+Frontend : React
+<div>
+<img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="React Logo" width="200"/>
+</div>
+
+
+
+
+
+
+
+
+
