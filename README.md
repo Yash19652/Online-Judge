@@ -11,4 +11,4 @@ This is a full-stack application built using MERN-stack (MongoDB,ExpressJS,React
 
 ## Technologies Used
 
-![reactJS]('https://www.google.com/url?sa=i&url=https%3A%2F%2Flevelup.gitconnected.com%2Fdisplay-images-in-react-8ff1f5b1cf9a&psig=AOvVaw0K8W28-lcm8x9UyshiSHbz&ust=1718205862492000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjG86Ht04YDFQAAAAAdAAAAABAQ')
+![reactJS](https://www.google.com/url?sa=i&url=https%3A%2F%2Flevelup.gitconnected.com%2Fdisplay-images-in-react-8ff1f5b1cf9a&psig=AOvVaw0K8W28-lcm8x9UyshiSHbz&ust=1718205862492000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLjG86Ht04YDFQAAAAAdAAAAABAQ)

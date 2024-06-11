@@ -11,7 +11,7 @@ if (!fs.existsSync(outputPath)) {
 
 const executeCpp = (filePath, inputFilePath) => {
   const jobId = path.basename(filePath).split(".")[0];
-  const outputFileName = `${jobId}.out`; // depends upon the environment
+  const outputFileName = `${jobId}.exe`; // depends upon the environment
   const outPath = path.join(outputPath, outputFileName);
 
 return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ return new Promise((resolve, reject) => {
             return;
         }
 
-        const command2 = `cd ${outputPath} && ./${outputFileName} < ${inputFilePath}`;
+        const command2 = `cd ${outputPath} && .\\${outputFileName} < ${inputFilePath}`;
         exec(command2, (error, stdout, stderr) => {
             if (error) {
                 console.log(error)
