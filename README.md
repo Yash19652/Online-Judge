@@ -18,9 +18,10 @@ Backend : NodeJS , ExpressJS
   <img src="https://github.com/Arpan783808/OJ-Project/assets/123624309/0f9c5307-3084-43fc-8350-771b83628b64" alt="Express.js Logo" width="200"/> 
 </p>
 
-Frontend : React
+Frontend : React , MUI
 <div>
 <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg" alt="React Logo" width="200"/>
+<img src="https://github.com/Yash19652/Online-Judge/assets/113798540/8adde2a0-0168-4ac9-8ff6-f18022b326a2" alt="React Logo" width="200"/>
 </div>
 
 Authentication and Authorization :
