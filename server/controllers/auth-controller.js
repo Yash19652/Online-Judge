@@ -117,6 +117,8 @@ loginUser = async (req, res) => {
     const options = {
       expiresIn: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
       httpOnly: true, //only server will be able to manipulate
+      secure: true, // only if using HTTPS
+      sameSite: 'None' // necessary for cross-origin cookies
     };
 
     res.status(200).cookie("token", token, options).json({
